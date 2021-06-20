@@ -25,6 +25,12 @@ let
     # used as `src`.
     root = attrs0.root or null;
 
+    # Whether to fetch all refs while fetching Git dependencies. Useful if
+    # the wanted revision isn't in the default branch.
+    allRefs = attrs0.allRefs or false;
+    # Whether to fetch submodules while fetching Git dependencies.
+    gitSubmodules = attrs0.gitSubmodules or false;
+
     # The command to use for the build.
     cargoBuild =
       allowFun attrs0 "cargoBuild"
@@ -249,7 +255,7 @@ let
     # Whether we skip pre-building the deps
     isSingleStep = attrs.singleStep;
 
-    inherit (attrs) overrideMain;
+    inherit (attrs) overrideMain allRefs gitSubmodules;
 
     # The members we want to build
     # (list of directory names)
